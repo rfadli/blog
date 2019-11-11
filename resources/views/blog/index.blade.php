@@ -12,7 +12,8 @@
                     @if($post->image)
                         <div class="post-item-image">
                             <a href="post.html">
-                            <img src="{{ '/img/'.$post->image }}" alt="">
+                           <!-- <img src="{{ '/img/'.$post->image }}" alt=""> -->
+                            <img src="{{ $post->image_url }}" alt="">
                             </a>
                         </div>
                     @endif

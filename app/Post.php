@@ -17,7 +17,7 @@ class Post extends Model
         if(! is_null($this->image))
         {
             //$imagePath = public_path() . DIRECTORY_SEPARATOR . $this->image;
-            $imagePath = public_path() . "/" . $this->image;
+            $imagePath = public_path() . "/img/" . $this->image;
             if(file_exists($imagePath)) $imageUrl = asset("img/". $this->image);
 
         }
@@ -29,7 +29,7 @@ class Post extends Model
     {
         return $this->created_at->diffForHumans();
     }
-    
+
     public function scopeLatestFirst()
     {
         return $this->orderBy('created_at', 'desc');
