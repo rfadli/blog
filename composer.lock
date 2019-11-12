@@ -540,11 +540,14 @@
                 "laravel"
             ],
             "time": "2016-08-26T11:44:52+00:00"
+        },``
+        "require": {
+            "league/commonmark": "0.18.3"
         },
         {
             "name": "league/commonmark",
             "version": "0.15.7",
-            "source": {
+            "source": { 
                 "type": "git",
                 "url": "https://github.com/thephpleague/commonmark.git",
                 "reference": "36d82f166e441dfa28643f8d01dd8bdd3a579adf"
