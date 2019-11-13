@@ -20,16 +20,19 @@ class UsersTableSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'name' => "Jhon Doe",
+                'slug' => "jhon-doe",
                 'email' => "jhondoe@test.com",
                 'password' => bcrypt('secret')
             ],
             [
                 'name' => "Rian Fadli",
+                'slug' => "rian-fadli",
                 'email' => "rian@test.com",
                 'password' => bcrypt('rian666')
             ],
             [
                 'name' => "elmaika",
+                'slug' => "elmaika",
                 'email' => "elmaika@test.com",
                 'password' => bcrypt('elmaika123')
             ],

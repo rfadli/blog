@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Post;
 use App\Category;
+use App\User;
 
 class BlogController extends Controller
 {   
@@ -58,7 +59,38 @@ class BlogController extends Controller
                         ->published()
                         ->simplePaginate($this->limit);
 
-        return view("blog.index", compact('posts', 'categories', 'categoryName'));
+        return view("blog.index", compact('posts', 'categoryName'));
+        //dd(\DB::getQuerylog());
+    }
+
+    public function author(User $author)
+    {
+        //dd($author->name);
+
+        $authorName = $author->name;
+
+        /*---------------Configurasi On ComposerServiceProvider.php-------------*/
+        // $categories = Category::with(['posts' => function($query) {
+        //     $query->published();
+        // }])->orderBy('title', 'asc')->get();
+        /*--------------------------------------------------------------------- */
+
+        // \DB::enableQueryLog();
+        //$posts = Post::with('author')->orderBy('created_at', 'desc')->get();
+
+        // $posts = Post::with('author')
+        //             ->latestFirst()
+        //             ->published()
+        //             ->where('category_id', $id)
+        //             ->simplePaginate($this->limit);
+
+        $posts = $author->posts()
+                        ->with('category')
+                        ->latestFirst()
+                        ->published()
+                        ->simplePaginate($this->limit);
+
+        return view("blog.index", compact('posts', 'authorName'));
         //dd(\DB::getQuerylog());
     }
 
