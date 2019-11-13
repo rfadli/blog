@@ -14,11 +14,15 @@ class BlogController extends Controller
     public function index()
     {
 
-        $categories = Category::with(['posts' => function($query) {
-            $query->published();
-        }])->orderBy('title', 'asc')->get();
+        /*---------------Configurasi On ComposerServiceProvider.php-------------*/
+        // $categories = Category::with(['posts' => function($query) {
+        //     $query->published();
+        // }])->orderBy('title', 'asc')->get();
+        /*----------------------------------------------------------------------*/
+
         //\DB::enableQueryLog();
         //$posts = Post::with('author')->orderBy('created_at', 'desc')->get();
+
         $posts = Post::with('author')
                     ->latestFirst()
                     ->published()
@@ -33,9 +37,12 @@ class BlogController extends Controller
 
         $categoryName = $category->title;
 
-        $categories = Category::with(['posts' => function($query) {
-            $query->published();
-        }])->orderBy('title', 'asc')->get();
+        /*---------------Configurasi On ComposerServiceProvider.php-------------*/
+        // $categories = Category::with(['posts' => function($query) {
+        //     $query->published();
+        // }])->orderBy('title', 'asc')->get();
+        /*--------------------------------------------------------------------- */
+
         // \DB::enableQueryLog();
         //$posts = Post::with('author')->orderBy('created_at', 'desc')->get();
 
@@ -57,10 +64,12 @@ class BlogController extends Controller
 
     public function show(Post $post)
     {
-        $categories = Category::with(['posts' => function($query) {
-            $query->published();
-        }])->orderBy('title', 'asc')->get();
-
-        return view("blog.show", compact('post', 'categories'));
+        /*---------------Configurasi On ComposerServiceProvider.php-------------*/
+        // $categories = Category::with(['posts' => function($query) {
+        //     $query->published();
+        // }])->orderBy('title', 'asc')->get();
+        /*----------------------------------------------------------------- */
+        
+        return view("blog.show", compact('post'));
     }
 }

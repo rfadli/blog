@@ -27,6 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         //
         parent::boot($router);
+        
         //url seo 
         $router->bind('post', function($slug) {
             return Post::published()->where('slug', $slug)->first();
