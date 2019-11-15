@@ -101,7 +101,13 @@ class BlogController extends Controller
         //     $query->published();
         // }])->orderBy('title', 'asc')->get();
         /*----------------------------------------------------------------- */
-        
+        //update post set view_count = view_count + 1 where id = ?
+        # 1
+        // $viewCount = $post->view_count + 1;
+        // $post->update(['view_count' => $viewCount]);
+        # 2
+        $post->increment('view_count');
+
         return view("blog.show", compact('post'));
     }
 }
