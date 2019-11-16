@@ -2,8 +2,8 @@
 
 namespace App;
 
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
@@ -52,7 +52,6 @@ class Post extends Model
         return $imageUrl;
     }
 
-
     public function getDateAttribute($value)
     {
         //return $this->created_at->diffForHumans();
@@ -83,4 +82,28 @@ class Post extends Model
     {
         return $this->excerpt ? Markdown::convertToHtml(e($this->excerpt)) : NULL;
     }
+
+    public function dateFormatted($showTimes = false)
+    {
+        $format = "d/m/Y";
+        if($showTimes) $format = $format . " H:i:s";
+        return $this->created_at->format($format);
+    }
+
+    public function publicationLabel()
+    {
+        if ( ! $this->published_at )
+        {
+            return '<span class="label label-warning">Draft</span>';
+        }
+        else if($this->published_at && $this->published_at->isFuture())
+        {
+            return '<span class="label label-info">Schedule</span>';
+        }
+        else
+        {
+            return '<span class="label label-success">Published</span>';
+        }
+    }
+
 }
