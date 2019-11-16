@@ -33,4 +33,4 @@ Route::get('/author/{author}', [
 ]);
 Route::auth();
 
-Route::get('/home', 'HomeController@index');
+Route::get('/home', 'Backend\HomeController@index');
