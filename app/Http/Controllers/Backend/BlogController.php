@@ -37,9 +37,12 @@ class BlogController extends BackendController
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Requests\PostRequest $request)
     {
-        //
+        //dd('Success');
+        $request->user()->posts()->create($request->all());
+
+        return redirect('/backend/blog')->with('message', 'Your Post Was Created Successfully!!!');
     }
 
     /**

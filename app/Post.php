@@ -9,7 +9,14 @@ use GrahamCampbell\Markdown\Facades\Markdown;
 class Post extends Model
 {
     //protected $fillable = ['view_count'];
-
+    protected $fillable = [
+      'title',
+      'slug',
+      'excerpt',
+      'body',
+      'published_at',
+      'category_id'  
+    ];
     protected $dates = ['published_at'];
 
     public function author()
@@ -20,6 +27,12 @@ class Post extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
+    }
+
+    //function jika fill published tidak di ini maka null
+    public function setPublishedAtAttribute($value)
+    {
+        $this->attributes['published_at'] = $value ?: NULL;
     }
 
     public function getImageUrlAttribute($value)
