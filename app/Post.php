@@ -15,7 +15,8 @@ class Post extends Model
       'excerpt',
       'body',
       'published_at',
-      'category_id'  
+      'category_id',
+      'image'
     ];
     protected $dates = ['published_at'];
 

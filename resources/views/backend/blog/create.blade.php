@@ -25,7 +25,11 @@
           <div class="col-xs-12">
             <div class="box"> 
               <div class="box-body ">
-                    {!! Form::model($post, ['method' => 'post', 'route' => 'backend.blog.store']) !!}
+                    {!! Form::model($post, [
+                        'method' => 'POST', 
+                        'route' => 'backend.blog.store', 
+                        'files' => TRUE
+                    ]) !!}
 
                     <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                         {!! Form::label('title') !!}
@@ -76,6 +80,16 @@
                             <span class="help-block">{{ $errors->first('category_id') }}</span>
                         @endif
                     </div>
+
+                    <div class="form-group {{ $errors->has('image') ? 'has-error' : '' }}">
+                        {!! Form::label('image', 'Upload Image') !!}
+                        {!! Form::file('image') !!}
+
+                        @if($errors->has('image'))
+                            <span class="help-block">{{ $errors->first('image') }}</span>
+                        @endif
+                    </div>
+
                     <hr>
                     {!! Form::submit('Create New Post', ['class' => 'btn btn-primary']) !!}
 
