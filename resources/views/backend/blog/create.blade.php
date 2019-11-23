@@ -22,15 +22,18 @@
     <!-- Main content -->
     <section class="content">
         <div class="row">
-          <div class="col-xs-12">
+
+            {!! Form::model($post, [
+                            'method' => 'POST', 
+                            'route' => 'backend.blog.store', 
+                            'files' => TRUE,
+                            'id' => 'post-form'
+            ]) !!}
+
+          <div class="col-xs-9">
             <div class="box"> 
               <div class="box-body ">
-                    {!! Form::model($post, [
-                        'method' => 'POST', 
-                        'route' => 'backend.blog.store', 
-                        'files' => TRUE
-                    ]) !!}
-
+              
                     <div class="form-group {{ $errors->has('title') ? 'has-error' : '' }}">
                         {!! Form::label('title') !!}
                         {!! Form::text('title', null, ['class' => 'form-control']) !!}
@@ -63,6 +66,18 @@
                         @endif
                     </div>
 
+              </div>
+              <!-- /.box-body -->
+            </div>
+            <!-- /.box -->
+          </div>
+
+          <div class="col-xs-3">
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Publish</h3>
+                </div>
+                <div class="box-body">
                     <div class="form-group {{ $errors->has('published_at') ? 'has-error' : '' }}">
                         {!! Form::label('published_at', 'Publish Date') !!}
                         <div class='input-group date' id='datetimepicker1'>
@@ -76,19 +91,38 @@
                             <span class="help-block">{{ $errors->first('published_at') }}</span>
                         @endif
                     </div>
+                </div>
+                <div class="box-footer clearfix">
+                    <div class="pull-left">
+                        <a id="draft-btn" class="btn btn-default">Save Draft</a>
+                    </div>
+                    <div class="pull-right">
+                        {!! Form::submit('Publish', ['class' => 'btn btn-primary']) !!}
+                    </div>
+                </div>
+            </div>
 
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Category</h3>
+                </div>
+                <div class="box-body">
                     <div class="form-group {{ $errors->has('category_id') ? 'has-error' : '' }}">
-                        {!! Form::label('category_id', 'Category') !!}
                         {!! Form::select('category_id', App\Category::pluck('title', 'id'), null, ['class' => 'form-control', 'placeholder' => '--Choose Category--']) !!}
 
                         @if($errors->has('category_id'))
                             <span class="help-block">{{ $errors->first('category_id') }}</span>
                         @endif
                     </div>
-
+                </div>
+            </div>
+                 
+            <div class="box">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Feature Image</h3>
+                </div>
+                <div class="box-body text-center">
                     <div class="form-group {{ $errors->has('image') ? 'has-error' : '' }}">
-                        {!! Form::label('image', 'Upload Image') !!}
-                        <br>
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                             <div class="fileinput-new img-thumbnail" style="width: 200px; height: 150px;">
                                 <img src="http://placehold.it/200x150&text=No+Image"  alt="...">
@@ -100,22 +134,17 @@
                             </div>
                         </div>
 
-                        
-
                         @if($errors->has('image'))
                             <span class="help-block">{{ $errors->first('image') }}</span>
                         @endif
+
                     </div>
-
-                    <hr>
-                    {!! Form::submit('Create New Post', ['class' => 'btn btn-primary']) !!}
-
-                    {!! Form::close() !!}
-              </div>
-              <!-- /.box-body -->
+                </div>
             </div>
-            <!-- /.box -->
+            
           </div>
+           
+          {!! Form::close() !!}
         </div>
       <!-- ./row -->
     </section>
@@ -145,6 +174,12 @@
         $('#datetimepicker1').datetimepicker({
             format: 'YYYY-MM-DD HH:mm:ss',
             showClear: true
+        });
+
+        $('#draft-btn').click(function(e) {
+           e.preventDefault();
+           $('#published_at').val("");
+           $('#post-form').submit();
         });
     </script>
 @endsection
