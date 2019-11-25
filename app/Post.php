@@ -2,14 +2,17 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use GrahamCampbell\Markdown\Facades\Markdown;
 
 class Post extends Model
 {
-    //protected $fillable = ['view_count'];
-    protected $fillable = [
+    use SoftDeletes;
+    
+    protected $fillable = 
+    [
       'title',
       'slug',
       'excerpt',
