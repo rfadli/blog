@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class UserDeleteRequest extends Request
+class UserDestroyRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,13 @@ class UserDeleteRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return !($this->route('users') == config('cms.default_user_id') || 
+                    $this->route('users') == auth()->user()->id);
+    }
+
+    public function forbiddenResponse()
+    {
+        return redirect()->back()->with('error-message', 'You cannot delete default user!!');
     }
 
     /**
